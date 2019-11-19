@@ -1,15 +1,25 @@
 import React from 'react';
 
-export default class MovieItem extends React.Component{
-    constructor() {
-        super();
-        this.state = {
-            willWatch: false
-        }
+export default class MovieItem extends React.Component {
+// раньше state был в констукторе с super, но после рефакторинга ушел
+    state = {
+        willWatch: false
     }
 
+    toggleWillWatch =() => {
+        const {item, removeMovieFromToWatch, addMovieToWatch} = this.props;
+        if (this.state.willWatch) {
+            removeMovieFromToWatch(item.id)
+        } else {
+            addMovieToWatch(item)
+        }
+        this.setState({willWatch: !this.state.willWatch})
+}
+
+
     render() {
-        const {item, addMovieToWatch, removeMovieById} = this.props;
+        const {item, addMovieToWatch, removeMovieById, removeMovieFromToWatch} = this.props;
+        const classNameBtn = `btn ${this.state.willWatch === true ? "btn-success" : "btn-secondary"} `;
         return (
             <div className="card">
                 <img
@@ -22,8 +32,8 @@ export default class MovieItem extends React.Component{
                     <h6 className="card-title">{item.title}</h6>
                     <div className="d-flex justify-content-between align-items-center">
                         <p className="mb-0">Rating: {item.vote_average}</p>
-                        <button type="button" className="btn btn-secondary" onClick={() => {
-                            addMovieToWatch(item)
+                        <button type="button" className={classNameBtn} onClick={() => {
+                            this.toggleWillWatch()
                         }}>
                             Will Watch
                         </button>
