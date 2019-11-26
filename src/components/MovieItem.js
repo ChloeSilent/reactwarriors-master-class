@@ -1,12 +1,12 @@
 import React from 'react';
 
 export default class MovieItem extends React.Component {
-// раньше state был в констукторе с super, но после рефакторинга ушел
+
     state = {
         willWatch: false
-    }
+    };
 
-    toggleWillWatch =() => {
+    toggleWillWatch = () => {
         const {item, removeMovieFromToWatch, addMovieToWatch} = this.props;
         if (this.state.willWatch) {
             removeMovieFromToWatch(item.id)
@@ -14,7 +14,12 @@ export default class MovieItem extends React.Component {
             addMovieToWatch(item)
         }
         this.setState({willWatch: !this.state.willWatch})
-}
+    };
+
+    // componentWillUnmount() {
+
+    // }
+
 
 
     render() {
