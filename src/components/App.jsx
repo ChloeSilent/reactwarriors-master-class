@@ -37,7 +37,7 @@ class App extends Component {
             moviesWillWatch: updateMoviesWillWatch
           });
       console.log(updateMoviesWillWatch);
-    }
+    };
 
     render() {
         console.log("render");
